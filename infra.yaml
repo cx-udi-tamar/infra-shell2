@@ -5,41 +5,65 @@
 - create:
     - ${DIR_DOTFILES}/oh-my-zsh
 
-- install-brew: true
-
 # cleanup
 - shell:
     - command: rm -rfv ${DIR_DOTFILES}
       description: Cleaning up previous state
+      quiet: false
       stdout: false
 
 - link:
     #format TARGET: GIT SOURCE FILES
-    ${DIR_DOTFILES}/.zshrc:   ${PATH_BASE_REPO_SRC}/zshrc
+    ${DIR_DOTFILES}/.zshrc: ${PATH_BASE_REPO_SRC}/zshrc
     ${DIR_DOTFILES}/wezterm/: ${PATH_BASE_REPO_SRC}/wezterm/
     ${DIR_DOTFILES}/Brewfile: ${PATH_BASE_REPO_SRC}/Brewfile
 
 - shell:
     - name: Install Homebrew
-      command: |
+      command: >
         if ! command -v brew >/dev/null 2>&1; then
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         else
           echo "Homebrew is already installed"
         fi
-      stdout: true
-
-- shell:
-    - command: git clone https://github.com/ohmyzsh/ohmyzsh.git ${DIR_DOTFILES}/oh-my-zsh
-      description: Cloning Oh My Zsh
+      quiet: false
       stdout: false
 
 - shell:
-    - command: curl -L git.io/antigen > ${DIR_DOTFILES}/antigen.zsh
+    - command: >
+        if [ ! -d "${DIR_DOTFILES}/oh-my-zsh" ]; then
+          git clone https://github.com/ohmyzsh/ohmyzsh.git "${DIR_DOTFILES}/oh-my-zsh";
+        else
+          echo "Oh My Zsh is already installed, skipping installation.";
+        fi
+      description: Cloning Oh My Zsh
+      quiet: false
+      stdout: false
+
+- shell:
+    - command: >
+        if [ ! -f "${DIR_DOTFILES}/antigen.zsh" ]; then
+          curl -L git.io/antigen > "${DIR_DOTFILES}/antigen.zsh";
+        else
+          echo "Antigen is already installed, skipping installation.";
+        fi
       description: Cloning Antigen
+      quiet: false
+      stdout: false
+
+- shell:
+    - command: >
+        if ! command -v reshctl &> /dev/null; then
+          curl -fsSL https://raw.githubusercontent.com/curusarn/resh/master/scripts/rawinstall.sh | bash;
+        else
+          echo "resh is already installed, skipping installation.";
+        fi
+      description: Install resh
+      quiet: false
       stdout: false
 
 - shell:
     - command: brew bundle --file ${DIR_DOTFILES}/Brewfile
       description: Brewing
+      quiet: false
       stdout: false
