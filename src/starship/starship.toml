@@ -1,0 +1,120 @@
+# ~/.config/starship.toml
+"$schema" = 'https://starship.rs/config-schema.json'
+add_newline = false
+format = "$sudo $directory${custom.dir_lock} $git_branch$git_status$character "
+right_format = "[$aws$kubernetes$python$golang$cmd_duration$status$time](#bac2de)"
+command_timeout = 500
+palette = "catppuccin_mocha"
+
+[directory]
+format = "[$path]($style) "
+style = "bold #d233a3" # Changed to purple (mauve)
+# style = "bold #cba6f7" # Changed to purple (mauve)
+truncation_length = 20
+truncation_symbol = "…/"
+truncate_to_repo = false
+use_logical_path = false
+
+[custom.dir_lock]
+when = "test ! -w ."
+command = "echo ''"
+style = "bold red"
+
+[git_branch]
+format = "[ $branch]($style) "
+symbol = ""
+style = "bold #cba6f7"
+truncation_length = 20
+truncation_symbol = "…"
+
+[git_status]
+format = "[$all_status$ahead_behind]($style) "
+style = "bold #f38ba8"
+conflicted = "✖ "
+staged = "+"
+modified = "!"
+untracked = "?"
+ahead = "↑"
+behind = "↓"
+
+[kubernetes]
+format = "[$symbol$context]($style) "
+symbol = "☸ "
+style = "bold #cba6f7"
+disabled = false
+
+[python]
+format = "[${symbol}$virtualenv]($style) "
+symbol = " "
+style = "bold #f9e2af"
+detect_extensions = ["py"]
+detect_files = ["requirements.txt", "pyproject.toml", "Pipfile"]
+detect_folders = ["venv", ".venv"]
+
+[golang]
+format = "[${symbol}$version]($style) "
+symbol = " "
+style = "bold #89b4fa"
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum"]
+detect_folders = ["src"]
+
+[cmd_duration]
+min_time = 500
+format = "[$duration]($style) "
+style = "bold #f9e2af"
+show_milliseconds = false
+
+[character]
+success_symbol = "[❯](bold #5033d2)"
+error_symbol = "[❯](bold #901235)"
+
+[status]
+format = "[ $int]($style) "
+style = "bold #f38ba8"
+symbol = "✖"
+disabled = false
+map_symbol = true
+
+[aws]
+format = "[ $profile]($style) " # Shows AWS profile (e.g., from AWS_PROFILE env var)
+style = "bold #fab387" # Peach color from Catppuccin Mocha
+disabled = false
+
+[time]
+format = "[$time]($style) " # Local time with a clock symbol
+style = "bold #b4befe" # Lavender color from Catppuccin Mocha
+disabled = false # Enable the time module
+
+[sudo]
+style = 'bold green'
+symbol = ' '
+disabled = false
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"

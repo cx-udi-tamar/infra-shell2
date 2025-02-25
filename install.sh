@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+# set -e
+NAME_BASE_REPO="infra-shell2"
+export PATH_BASE_REPO="${HOME}/git/${NAME_BASE_REPO}"
+export PATH_BASE_REPO_SRC="${HOME}/git/${NAME_BASE_REPO}/src"
+
+export DIR_DOTFILES=/tmp/.dotfiles
+
+export WEZTERM_CONFIG_FILE=${DIR_DOTFILES}/wezterm.lua
+
+dotbot --plugin-dir dotbot-brew -c ${PATH_BASE_REPO}/infra.yaml
+
+source ${DIR_DOTFILES}/.zshrc

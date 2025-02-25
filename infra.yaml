@@ -1,0 +1,45 @@
+- defaults:
+    link:
+      create: true
+
+- create:
+    - ${DIR_DOTFILES}/oh-my-zsh
+
+- install-brew: true
+
+# cleanup
+- shell:
+    - command: rm -rfv ${DIR_DOTFILES}
+      description: Cleaning up previous state
+      stdout: false
+
+- link:
+    #format TARGET: GIT SOURCE FILES
+    ${DIR_DOTFILES}/.zshrc:   ${PATH_BASE_REPO_SRC}/zshrc
+    ${DIR_DOTFILES}/wezterm/: ${PATH_BASE_REPO_SRC}/wezterm/
+    ${DIR_DOTFILES}/Brewfile: ${PATH_BASE_REPO_SRC}/Brewfile
+
+- shell:
+    - name: Install Homebrew
+      command: |
+        if ! command -v brew >/dev/null 2>&1; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        else
+          echo "Homebrew is already installed"
+        fi
+      stdout: true
+
+- shell:
+    - command: git clone https://github.com/ohmyzsh/ohmyzsh.git ${DIR_DOTFILES}/oh-my-zsh
+      description: Cloning Oh My Zsh
+      stdout: false
+
+- shell:
+    - command: curl -L git.io/antigen > ${DIR_DOTFILES}/antigen.zsh
+      description: Cloning Antigen
+      stdout: false
+
+- shell:
+    - command: brew bundle --file ${DIR_DOTFILES}/Brewfile
+      description: Brewing
+      stdout: false
