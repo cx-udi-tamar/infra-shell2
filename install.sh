@@ -8,6 +8,6 @@ export DIR_DOTFILES=/tmp/.dotfiles
 
 export WEZTERM_CONFIG_FILE=${DIR_DOTFILES}/wezterm.lua
 
-dotbot --plugin-dir dotbot-brew -c ${PATH_BASE_REPO}/infra.yaml
+dotbot -c ${PATH_BASE_REPO}/infra.yaml
 
 source ${DIR_DOTFILES}/.zshrc
