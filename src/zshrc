@@ -43,35 +43,9 @@ fi
 # Load antigen if available
 if [ -f "${DIR_DOTFILES}/antigen.zsh" ]; then
   # Load Antigen
-  source ${DIR_DOTFILES}/antigen.zsh
-  # Set oh-my-zsh as the base framework
-  antigen use oh-my-zsh
-  # External plugins (clone from GitHub)
-  antigen bundle b4b4r07/you-should-use
-  antigen bundle zsh-users/zsh-syntax-highlighting
-  antigen bundle zsh-users/zsh-autosuggestions
-  # oh-my-zsh bundled plugins (most of these come with oh-my-zsh)
-  antigen bundle colored-man-pages
-  antigen bundle gh
-  antigen bundle git
-  antigen bundle docker
-  antigen bundle aws
-  antigen bundle helm       # Only once; remove duplicates
-  antigen bundle k9s
-  antigen bundle kubectl
-  antigen bundle k3d
-  antigen bundle z
-  antigen bundle dirhistory
-  antigen bundle ssh
-  antigen bundle sudo
-  antigen bundle last-working-dir
-  antigen bundle history
-  antigen bundle zsh-fzf-history-search
-  antigen bundle zsh-bat
-  antigen bundle emoji
-  antigen bundle encode64
-  # Apply the changes – this creates the necessary symlinks and loads the plugins
-  antigen apply
+  source ~/antigen.zsh
+  # Load Antigen configurations
+  antigen init ~/.antigenrc
 fi
 
 # Initialize Starship prompt

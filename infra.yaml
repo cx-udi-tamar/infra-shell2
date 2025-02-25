@@ -14,9 +14,10 @@
 
 - link:
     #format TARGET: GIT SOURCE FILES
-    ${DIR_DOTFILES}/.zshrc: ${PATH_BASE_REPO_SRC}/zshrc
+    ${DIR_DOTFILES}/.zshrc:   ${PATH_BASE_REPO_SRC}/zshrc
     ${DIR_DOTFILES}/wezterm/: ${PATH_BASE_REPO_SRC}/wezterm/
     ${DIR_DOTFILES}/Brewfile: ${PATH_BASE_REPO_SRC}/Brewfile
+    ${DIR_DOTFILES}/.antigenrc:  ${PATH_BASE_REPO_SRC}/antigenrc
 
 - shell:
     - name: Install Homebrew
