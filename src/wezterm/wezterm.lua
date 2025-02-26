@@ -18,11 +18,6 @@ config.font_rules = {
   },
 }
 
--- Colors
--- If you want to use a built-in color scheme instead of your custom 'cyberdream' colors,
--- you can remove or comment out the following line:
--- config.colors = require 'cyberdream'
-
 -- Set the built-in color scheme
 config.color_scheme = "Catppuccin Mocha"  -- or Macchiato, Frappe, Latte
 

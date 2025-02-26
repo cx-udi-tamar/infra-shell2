@@ -29,8 +29,8 @@
         else
           echo "Homebrew is already installed"
         fi
-      quiet: ${quiet_flag}
-      stdout: ${stdout_flag}
+      quiet: true
+      stdout: false
 
 - shell:
     - command: >
@@ -40,8 +40,8 @@
           echo "Oh My Zsh is already installed, skipping installation.";
         fi
       description: Cloning Oh My Zsh
-      quiet: ${quiet_flag}
-      stdout: ${stdout_flag}
+      quiet: true
+      stdout: false
 
 - shell:
     - command: >
@@ -51,11 +51,22 @@
           echo "Antigen is already installed, skipping installation.";
         fi
       description: Cloning Antigen
-      quiet: ${quiet_flag}
-      stdout: ${stdout_flag}
+      quiet: true
+      stdout: false
 
 - shell:
     - command: brew bundle --file ${DIR_DOTCONF}/Brewfile
       description: Brewing
-      quiet: ${quiet_flag}
-      stdout: ${stdout_flag}
+      quiet: true
+      stdout: false
+
+- shell:
+    - command: >
+        if ! command -v reshctl &> /dev/null; then
+          curl -fsSL https://raw.githubusercontent.com/curusarn/resh/master/scripts/rawinstall.sh | bash;
+        else
+          echo "resh is already installed, skipping installation.";
+        fi
+      description: Installing resh if not already installed
+      quiet: true
+      stdout: false
