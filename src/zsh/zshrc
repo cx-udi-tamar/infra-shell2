@@ -1,9 +1,10 @@
+#!/usr/bin/env zsh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 echo '==============================='
-echo INFRA SHELL CONFIGURATION ZSHRC
+echo  MANAGED ZSHRC CONFINGURATION
 echo '==============================='
 
 # Path to your Oh My Zsh installation.
@@ -11,12 +12,12 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # temp workaround
-export DIR_DOTFILES=/tmp/.dotfiles
+export DIR_DOTCONF=${HOME}/.config
 
 # === History Settings ===
 HISTSIZE=10000
 SAVEHIST=10000
-export HISTFILE=${DIR_DOTFILES}/.zsh_history
+export HISTFILE=${DIR_DOTCONF}/.zsh_history
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_FIND_NO_DUPS
@@ -33,31 +34,32 @@ alias lse='eza --long --header --icons --git'
 
 
 # Set the path for oh-my-zsh
-export ZSH="${DIR_DOTFILES}/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 # Load oh-my-zsh if installed
 if [ -d "$ZSH" ]; then
   source "$ZSH/oh-my-zsh.sh"
 fi
 
 # Load antigen if available
-if [ -f "${DIR_DOTFILES}/antigen.zsh" ]; then
+if [ -f "${DIR_DOTCONF}/antigen.zsh" ]; then
   # Load Antigen
-  source ${DIR_DOTFILES}/antigen.zsh
+  source ${DIR_DOTCONF}/antigen.zsh
   # Load Antigen configurations
-  antigen init ${DIR_DOTFILES}/.antigenrc
+  antigen init ${DIR_DOTCONF}/.antigenrc
 fi
 
 # Initialize Starship prompt
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
+export STARSHIP_CONFIG=${DIR_DOTCONF}/starship/starship.toml
 
-function sudo {
-    ${HOME}/.local/bin/pam_tid.py --check || echo "Enabling Touch ID for sudo..."; /usr/bin/sudo ${HOME}/.local/bin/pam_tid.py
-    /usr/bin/sudo "$@"
-}
+# function sudo {
+#     ${HOME}/.local/bin/pam_tid.py --check || echo "Enabling Touch ID for sudo..."; /usr/bin/sudo ${HOME}/.local/bin/pam_tid.py
+#     /usr/bin/sudo "$@"
+# }
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 
 complete -C $(which aws_completer) aws
 autoload bashcompinit && bashcompinit

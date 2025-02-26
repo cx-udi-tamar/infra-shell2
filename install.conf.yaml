@@ -1,0 +1,61 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+      force: true
+
+- clean:
+    ~/:
+      force: true
+    ~/.config:
+      recursive: true
+
+- create:
+    - ${DIR_DOTCONF}
+
+- link:
+    #format TARGET: GIT SOURCE FILES
+    ${HOME}/.zshrc: ${PATH_BASE_REPO_SRC}/zsh/zshrc
+    ${DIR_DOTCONF}/wezterm: ${PATH_BASE_REPO_SRC}/wezterm
+    ${DIR_DOTCONF}/starship: ${PATH_BASE_REPO_SRC}/starship
+    ${DIR_DOTCONF}/Brewfile: ${PATH_BASE_REPO_SRC}/Brewfile
+    ${DIR_DOTCONF}/.antigenrc: ${PATH_BASE_REPO_SRC}/antigenrc
+
+- shell:
+    - name: Install Homebrew
+      command: >
+        if ! command -v brew >/dev/null 2>&1; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        else
+          echo "Homebrew is already installed"
+        fi
+      quiet: ${quiet_flag}
+      stdout: ${stdout_flag}
+
+- shell:
+    - command: >
+        if [ ! -d "${HOME}/.oh-my-zsh" ]; then
+          git clone https://github.com/ohmyzsh/ohmyzsh.git "${HOME}/.oh-my-zsh";
+        else
+          echo "Oh My Zsh is already installed, skipping installation.";
+        fi
+      description: Cloning Oh My Zsh
+      quiet: ${quiet_flag}
+      stdout: ${stdout_flag}
+
+- shell:
+    - command: >
+        if [ ! -f "${DIR_DOTCONF}/antigen.zsh" ]; then
+          curl -L git.io/antigen > "${DIR_DOTCONF}/antigen.zsh";
+        else
+          echo "Antigen is already installed, skipping installation.";
+        fi
+      description: Cloning Antigen
+      quiet: ${quiet_flag}
+      stdout: ${stdout_flag}
+
+- shell:
+    - command: brew bundle --file ${DIR_DOTCONF}/Brewfile
+      description: Brewing
+      quiet: ${quiet_flag}
+      stdout: ${stdout_flag}
