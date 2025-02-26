@@ -3,6 +3,9 @@
       create: true
       relink: true
       force: true
+    shell:
+      quiet: true
+      stdout: false
 
 - clean:
     ~/:
@@ -29,44 +32,48 @@
         else
           echo "Homebrew is already installed"
         fi
-      quiet: true
-      stdout: false
+
 
 - shell:
     - command: >
         if [ ! -d "${HOME}/.oh-my-zsh" ]; then
           git clone https://github.com/ohmyzsh/ohmyzsh.git "${HOME}/.oh-my-zsh";
         else
-          echo "Oh My Zsh is already installed, skipping installation.";
+          echo "Oh My Zsh is already installed";
         fi
       description: Cloning Oh My Zsh
-      quiet: true
-      stdout: false
+
 
 - shell:
     - command: >
         if [ ! -f "${DIR_DOTCONF}/antigen.zsh" ]; then
           curl -L git.io/antigen > "${DIR_DOTCONF}/antigen.zsh";
         else
-          echo "Antigen is already installed, skipping installation.";
+          echo "Antigen is already installed";
         fi
       description: Cloning Antigen
-      quiet: true
-      stdout: false
 
-- shell:
-    - command: brew bundle --file ${DIR_DOTCONF}/Brewfile
-      description: Brewing
-      quiet: true
-      stdout: false
 
 - shell:
     - command: >
         if ! command -v reshctl &> /dev/null; then
           curl -fsSL https://raw.githubusercontent.com/curusarn/resh/master/scripts/rawinstall.sh | bash;
         else
-          echo "resh is already installed, skipping installation.";
+          echo "Resh is already installed";
         fi
-      description: Installing resh if not already installed
-      quiet: true
-      stdout: false
+      description: Installing resh
+
+
+- shell:
+    - command: >
+        if [ ! -f "/usr/local/bin/tgpt" ]; then
+          curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s /usr/local/bin;
+        else
+          echo "Tgpt is already installed";
+        fi
+      description: Installing tgpt
+
+
+- shell:
+    - command: brew bundle --file ${DIR_DOTCONF}/Brewfile
+      description: Brewing
