@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:/usr/local/homebrew/bin:$PATH
 
-echo '==============================='
-echo  MANAGED ZSHRC CONFINGURATION
-echo '==============================='
-
+echo  "MANAGED ZSH INFRA CONFINGURATION"
+echo  "---------------------------------"
 # Path to your Oh My Zsh installation.
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
